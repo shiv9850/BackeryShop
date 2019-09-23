@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Product>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="row" style="margin-left:2px">
+    <form asp-controller="Product" asp-action="Index" class="col-md-3" method="get">
+        <input name="SearchString" placeholder="Search" />
+        <input type="submit" class="btn btn-success" value="Search" />
+    </form>
+    <a asp-action="Create" class="btn btn-primary col-md-1">Add New</a>
+</div>
+<hr/>
+<div class="row">
+    @{
+        foreach (Product item in Model)
+        {
+            var imageName = !string.IsNullOrEmpty(item.Image) ? $"~/images/{item.Image}" : "~/images/banner4.svg";
+            <div class="col-md-3 my-card">
+                <div class="card">
+                    <img class="card-img-top custom-image" src="@imageName" alt="@item.Name" asp-append-version="true">
+                    <div class="card-body">
+                        <a class="card-title" asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
+                        <h6>@item.Price</h6>
+                        <p class="card-text">@item.ShortDescription</p>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary" asp-controller="Product" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a class="btn btn-warning">Out of Stock</a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+

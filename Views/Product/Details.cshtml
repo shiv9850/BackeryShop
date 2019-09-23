@@ -1,0 +1,33 @@
+﻿@model BakeryShop.Models.Product
+
+@{
+    ViewData["Title"] = "Details";
+    var imageName = !string.IsNullOrEmpty(Model.Image) ? $"~/images/{Model.Image}" : "~/images/banner4.svg";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+       
+    <div class="my-card">
+        <div class="card">
+            <img class="card-img-top custom-image-lg" src="@imageName" alt="@Model.Name" asp-append-version="true">
+            <div class="card-body">
+                <h5 class="card-title">@Model.Name</h5>
+                <h6>@Model.Price</h6>
+                <p class="card-text">@Model.ShortDescription</p>
+                <p class="card-text">@Model.FullDescription</p>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-primary" asp-controller="Product" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
